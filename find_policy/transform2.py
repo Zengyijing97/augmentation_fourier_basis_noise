@@ -63,23 +63,10 @@ class AddFourierNoise(object):
         fourier_noise[0, :, :] *= random.randrange(-1, 2, 2)
         fourier_noise[1, :, :] *= random.randrange(-1, 2, 2)
         fourier_noise[2, :, :] *= random.randrange(-1, 2, 2)
-        # print(fourier_noise.shape)
         convert_tensor = transforms.ToTensor()
-        # x = torch.from_numpy(x)
-        #x:IMG
-        # print(type(x))
-        # print(x.size)
         x = np.array(x)
-        # print("x.shape after np.array:",x.shape)
-        # x = convert_tensor(x)
         x = x.reshape(3,32,32)
         x = torch.from_numpy(x)
-        # x = x.permute(2,0,1)
-        
-        # print("x.reshape:",x.shape)
-        # with open("fastautoaugment/shape.txt", 'a') as f:
-        #     f.write("fourier_noise: " + str(fourier_noise.shape) + "\n")
-        #     f.write("x: " + str(x.shape) + "\n")
         img_new = torch.clamp(x + fourier_noise, min=0.0, max=1.0)
         img_new = img_new.numpy()
         img_new = img_new.reshape(3,32,32)
@@ -154,10 +141,7 @@ class BaseTransform(ABC):
 class FourierBasisNoise_1(BaseTransform):
     def transform(self, img):
         eps = self.mag
-        # print(type(img))
-        # print(img.size)
         transform = group_frequency(eps,1)
-        # img = np.array(img)
         img = transform(img)
         img = Image.fromarray(img[0,:,:])
         img = img.convert("RGB")
@@ -166,10 +150,7 @@ class FourierBasisNoise_1(BaseTransform):
 class FourierBasisNoise_2(BaseTransform):
     def transform(self, img):
         eps = self.mag
-        # print(type(img))
-        # print(img.size)
         transform = group_frequency(eps,2)
-        # img = np.array(img)
         img = transform(img)
         img = Image.fromarray(img[0,:,:])
         img = img.convert("RGB")
@@ -178,10 +159,7 @@ class FourierBasisNoise_2(BaseTransform):
 class FourierBasisNoise_3(BaseTransform):
     def transform(self, img):
         eps = self.mag
-        # print(type(img))
-        # print(img.size)
         transform = group_frequency(eps,3)
-        # img = np.array(img)
         img = transform(img)
         img = Image.fromarray(img[0,:,:])
         img = img.convert("RGB")
@@ -190,10 +168,7 @@ class FourierBasisNoise_3(BaseTransform):
 class FourierBasisNoise_4(BaseTransform):
     def transform(self, img):
         eps = self.mag
-        # print(type(img))
-        # print(img.size)
         transform = group_frequency(eps,4)
-        # img = np.array(img)
         img = transform(img)
         img = Image.fromarray(img[0,:,:])
         img = img.convert("RGB")
@@ -202,10 +177,7 @@ class FourierBasisNoise_4(BaseTransform):
 class FourierBasisNoise_5(BaseTransform):
     def transform(self, img):
         eps = self.mag
-        # print(type(img))
-        # print(img.size)
         transform = group_frequency(eps,5)
-        # img = np.array(img)
         img = transform(img)
         img = Image.fromarray(img[0,:,:])
         img = img.convert("RGB")
